@@ -89,7 +89,17 @@ def solution(scores):
         avg = sum(score) / len(score)
         answer += get_grade(avg)
     return answer
-        
+
+def solution2(scores):
+    answer = ''
+    student_score = list(zip(*scores))
+    for i, score in enumerate(student_score):
+        if (max(score) == score[i] and score.count(max(score)) == 1) or (min(score) == score[i] and score.count(min(score)) == 1):
+            score = list(score)
+            score.remove(score[i])
+        avg = sum(score) / len(score)
+        answer += get_grade(avg)
+    return answer
 
 question = [
     {
@@ -111,7 +121,7 @@ question = [
 ]
 
 for q in question:
-    if q['result'] == solution(q['score']):
+    if q['result'] == solution2(q['score']):
         print(q['result'])
     else:
         print("실패!!!!!")
