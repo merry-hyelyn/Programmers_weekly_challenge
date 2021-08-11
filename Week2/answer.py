@@ -79,19 +79,12 @@ def get_grade(avg):
         return 'D'
     return 'F'
 
-def _solution(scores):
-    answer = ''
-    l = len(scores)
-    student_score = [[scores[j][i] for j in range(l)] for i in range(l)]
-    print(student_score)
-
 def solution(scores):
     answer = ''
     l = len(scores)
     student_score = [[scores[j][i] for j in range(l)] for i in range(l)]
     for i, score in enumerate(student_score):
-        if (max(score) == score[i] and score.count(max(score))) or (min(score) == score[i] and score.count(min(score))):
-            print(score[i], max(score), min(score))
+        if (max(score) == score[i] and score.count(max(score)) == 1) or (min(score) == score[i] and score.count(min(score)) == 1):
             score.remove(score[i])
         avg = sum(score) / len(score)
         answer += get_grade(avg)
@@ -101,18 +94,26 @@ def solution(scores):
 question = [
     {
         'score' : [[100,90,98,88,65],[50,45,99,85,77],[47,88,95,80,67],[61,57,100,80,65],[24,90,94,75,65]],
+        'result' : "FBABD",
         
     },
     {
         'score' : [[50,90],[50,87]],
+        'result' : "DA",
         
     },
     {
         'score' : [[70,49,90],[68,50,38],[73,31,100]],
+        'result' : "CFD",
         
     }
 
 ]
 
-print(solution([[100,90,98,88,65],[50,45,99,85,77],[47,88,95,80,67],[61,57,100,80,65],[24,90,94,75,65]]))
+for q in question:
+    if q['result'] == solution(q['score']):
+        print(q['result'])
+    else:
+        print("실패!!!!!")
+
     
