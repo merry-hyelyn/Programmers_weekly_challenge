@@ -101,6 +101,19 @@ def solution2(scores):
         answer += get_grade(avg)
     return answer
 
+from collections import Counter
+# 조건이 점수 내에서 가장 크거나 가장 작은 수가 딱 하나이면서 자기 자신이 수
+
+def solution3(scores):
+    answer = ''
+    for idx ,score in enumerate(list(zip(*scores))):
+        if Counter(score)[score[idx]] == 1 and (score[idx] == max(score) or score[idx] == min(score)):
+            score = list(score)
+            score.remove(score[idx])
+        avg = sum(score) / len(score)
+        answer += get_grade(avg)
+    return answer
+
 question = [
     {
         'score' : [[100,90,98,88,65],[50,45,99,85,77],[47,88,95,80,67],[61,57,100,80,65],[24,90,94,75,65]],
@@ -121,7 +134,7 @@ question = [
 ]
 
 for q in question:
-    if q['result'] == solution2(q['score']):
+    if q['result'] == solution3(q['score']):
         print(q['result'])
     else:
         print("실패!!!!!")
