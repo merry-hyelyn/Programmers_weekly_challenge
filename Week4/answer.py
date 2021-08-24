@@ -4,31 +4,25 @@ def make_language_preference_table(languages, preference):
         table[languages[i]] = preference[i]
     return table
 
-def make_grade_by_job_table(table):
-    grade_by_job_lang = {}
-    for t in table:
-        t_list = t.split(' ')
-        grade_by_lang = {}
-        for i, lang in enumerate(t_list[1:]):
-            grade_by_lang[lang] = 5 - i
-        grade_by_job_lang[t_list[0]] = grade_by_lang
-    return grade_by_job_lang
-
-
 def solution(table, languages, preference):
     answer = ''
-    grade_by_job_lang = make_language_preference_table(table)
     languages_preference = make_language_preference_table(languages, preference)
-    preference_by_job = {}
-    
-    for key, value in grade_by_job_lang.items():
+    prev_score = 0
+    for row in table:
         score = 0
-        for lang, grade in languages_preference.items():
-            score += value[lang] * grade
-        preference_by_job[key] = score
+        data = row.split(' ')
+        for k, v in languages_preference.items():
+            if k in data:
+                grade = 6 - data.index(k)
+                score += grade * v
+        if prev_score < score:
+            prev_score = score
+            answer = data[0]
+        if prev_score == score:
+            answer = data[0] if answer > data[0] else answer
     return answer
 
-solution(
+print(solution(
     [
         "SI JAVA JAVASCRIPT SQL PYTHON C#", 
         "CONTENTS JAVASCRIPT JAVA PYTHON SQL C++", 
@@ -38,4 +32,16 @@ solution(
     ],
         ["PYTHON", "C++", "SQL"],
         [7, 5, 5]
-    )
+    ))
+
+print(solution(
+    [
+        "SI JAVA JAVASCRIPT SQL PYTHON C#", 
+        "CONTENTS JAVASCRIPT JAVA PYTHON SQL C++", 
+        "HARDWARE C C++ PYTHON JAVA JAVASCRIPT", 
+        "PORTAL JAVA JAVASCRIPT PYTHON KOTLIN PHP",
+        "GAME C++ C# JAVASCRIPT C JAVA"
+    ],
+    ["JAVA", "JAVASCRIPT"],
+    [7, 5],
+))
