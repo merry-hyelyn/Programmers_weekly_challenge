@@ -7,6 +7,12 @@ def make_language_preference_table(languages, preference):
 def solution(table, languages, preference):
     answer = ''
     languages_preference = make_language_preference_table(languages, preference)
+    '''
+    다른 사람의 풀이를 보고 zip을 이용하여 언어 선호도 테이블 생성
+    신기방기..
+    '''
+    use_zip_language_preference = {lang : pref for lang, pref in zip(languages, preference)}
+    
     prev_score = 0
     for row in table:
         score = 0
@@ -21,27 +27,3 @@ def solution(table, languages, preference):
         if prev_score == score:
             answer = data[0] if answer > data[0] else answer
     return answer
-
-print(solution(
-    [
-        "SI JAVA JAVASCRIPT SQL PYTHON C#", 
-        "CONTENTS JAVASCRIPT JAVA PYTHON SQL C++", 
-        "HARDWARE C C++ PYTHON JAVA JAVASCRIPT", 
-        "PORTAL JAVA JAVASCRIPT PYTHON KOTLIN PHP",
-        "GAME C++ C# JAVASCRIPT C JAVA"
-    ],
-        ["PYTHON", "C++", "SQL"],
-        [7, 5, 5]
-    ))
-
-print(solution(
-    [
-        "SI JAVA JAVASCRIPT SQL PYTHON C#", 
-        "CONTENTS JAVASCRIPT JAVA PYTHON SQL C++", 
-        "HARDWARE C C++ PYTHON JAVA JAVASCRIPT", 
-        "PORTAL JAVA JAVASCRIPT PYTHON KOTLIN PHP",
-        "GAME C++ C# JAVASCRIPT C JAVA"
-    ],
-    ["JAVA", "JAVASCRIPT"],
-    [7, 5],
-))
