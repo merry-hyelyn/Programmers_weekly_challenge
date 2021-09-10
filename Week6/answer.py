@@ -33,18 +33,26 @@ def solution(weights, head2head):
     for i, v in enumerate(weights):
         win_count = 0
         weight_win = 0
+        total_len = l
         for j in range(l):
+            if head2head[i][j] == 'N':
+                total_len -= 1
             if head2head[i][j] == 'W':
                 win_count += 1
                 if v < weights[j]:
                     weight_win += 1
-        win_percent = win_count / (l-1) * 100
+        try:
+            win_percent = win_count / total_len * 100
+        except:
+            win_percent = 0
         ath_data.append((win_percent, weight_win, v, i+1,))
-    ath_data.sort(key=lambda x: ( -x[0], -x[1], -x[2], x[3]))
+    ath_data.sort(key=lambda x: (-x[0], -x[1], -x[2], x[3]))
     answer = [i[3] for i in ath_data]
     return answer
 
-print(solution([50,82,75,120], ["NLWL","WNLL","LWNW","WWLN"]))
-print(solution([145,92,86], 	["NLW","WNL","LWN"]))
-print(solution([60,70,60], ["NNN","NNN","NNN"]))
 
+print(solution([50, 82, 75, 120], ["NLWL", "WNLL", "LWNW", "WWLN"]))
+print(solution([145, 92, 86], 	["NLW", "WNL", "LWN"]))
+print(solution([60, 70, 60], ["NNN", "NNN", "NNN"]))
+
+# 총 경기 한수가 내가 한 경기 수!
